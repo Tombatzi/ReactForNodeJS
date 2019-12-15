@@ -1,10 +1,10 @@
 import React,{useState,useEffect,useContext} from 'react';
-import CustomerTable from './components/table/CustomerTable'
-import Form from './components/form/Form'
+import CustomerTable from './table/CustomerTable'
+import Form from './form/Form'
 
 export const SearchContext = React.createContext();
 
-const RestApp = () => {
+const SearchCustomers = () => {
 
     const [customers, setCustomers] = useState([]);
     const [customerTypes, setCustomerTypes] = useState([]);
@@ -23,6 +23,7 @@ const RestApp = () => {
         }
         fetchCustomers();
     },[query]);
+    
     useEffect(() =>{
     async function fetchTypes(){
         let response = await fetch("http://localhost:3000/asiakastyyppi");
@@ -44,4 +45,4 @@ const RestApp = () => {
     )
 }
 
-export default RestApp;
+export default SearchCustomers;
