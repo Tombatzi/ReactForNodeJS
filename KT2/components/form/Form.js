@@ -2,7 +2,9 @@ import React, { useContext,useState } from 'react'
 import {SearchContext} from '../RestApp'
 
 const Form = () => {
-
+    //Päivitetään input-kenttien arvot state-muuttujiin. handleSearch-funktiossa tarkistetaan mitkä kentät ovat syötettyinä
+    //ja päivitetään str-muuttujaa sitä mukaa. Lopuksi viedään str-muuttuja Contextin updateQuery-funktioon -> 
+    //RestAppissa query-muuttuja päivittyy ja useEffect-hook hakee asiakkaat.
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [id, setId] = useState("");

@@ -1,7 +1,7 @@
-import React,{useState,useEffect,useContext} from 'react';
+import React,{useState,useEffect} from 'react';
 import CustomerTable from './table/CustomerTable'
 import Form from './form/Form'
-
+//Haetaan asiakkaiden tiedot state-muuttujiin, käytetään contextia datan välitykseen Form ja SearchCustomers-komponenttien välillä
 export const SearchContext = React.createContext();
 
 const SearchCustomers = () => {
@@ -9,12 +9,11 @@ const SearchCustomers = () => {
     const [customers, setCustomers] = useState([]);
     const [customerTypes, setCustomerTypes] = useState([]);
     const [query, setQuery] = useState("");
+    const [deleteCustomerId, setDeleteCustomerId] = useState("");
    
     
   
     useEffect(() =>{
-        console.log("UseEffect:");
-        console.log(query);
         async function fetchCustomers(){
             let response = await fetch("http://localhost:3000/asiakas?"+query);
             let d = await response.json();
@@ -33,9 +32,17 @@ const SearchCustomers = () => {
     }
     fetchTypes();
 },[]);
+        async function deleteCustomer(id){
+            
+                let response = await fetch("http://localhost:3000/asiakas/"+id, {
+                    method: 'DELETE',
+                });
+                console.log(response);
+        };
 
     return (
-        <SearchContext.Provider value = {{updateQuery : (q) => {setQuery(q)},types : customerTypes}}>
+        <SearchContext.Provider value = {{updateQuery : (q) => {setQuery(q)}, updateDeleteId : (id) => {setDeleteCustomerId(id)},
+                                        deleteCustomerData  : (id) => {deleteCustomer(id)} ,types : customerTypes}}>
         <div>
             <p>Haetaan asiakkaat</p>
             <Form/>
