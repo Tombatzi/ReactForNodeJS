@@ -4,15 +4,14 @@ import Form from './form/Form'
 //Haetaan asiakkaiden tiedot state-muuttujiin, käytetään contextia datan välitykseen Form ja SearchCustomers-komponenttien välillä
 export const SearchContext = React.createContext();
 
+
 const SearchCustomers = () => {
 
     const [customers, setCustomers] = useState([]);
     const [customerTypes, setCustomerTypes] = useState([]);
     const [query, setQuery] = useState("");
-    const [deleteCustomerId, setDeleteCustomerId] = useState("");
    
-    
-  
+   
     useEffect(() =>{
         async function fetchCustomers(){
             let response = await fetch("http://localhost:3000/asiakas?"+query);
@@ -41,14 +40,16 @@ const SearchCustomers = () => {
         };
 
     return (
-        <SearchContext.Provider value = {{updateQuery : (q) => {setQuery(q)}, updateDeleteId : (id) => {setDeleteCustomerId(id)},
+       
+        <SearchContext.Provider value = {{updateQuery : (q) => {setQuery(q)},
                                         deleteCustomerData  : (id) => {deleteCustomer(id)} ,types : customerTypes}}>
         <div>
             <p>Haetaan asiakkaat</p>
             <Form/>
-            <CustomerTable customers = {customers}/>
+            <CustomerTable customers = {customers} customerTypes = {customerTypes}/>
         </div>
         </SearchContext.Provider>
+         
     )
 }
 

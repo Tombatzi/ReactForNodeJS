@@ -13,7 +13,7 @@ const AddCustomer = () => {
     const [query, setQuery] = useState("");
     const [send, setSend] = useState(false);
     const [error, setError] = useState(false);
-    const [errorMsg, setErrorMsg] = useState("");
+    const [msg, setMsg] = useState("");
 
     useEffect(() => {
         async function fetchTypes() {
@@ -35,12 +35,12 @@ const AddCustomer = () => {
             if (!response.ok) {
                 let data = await response.json();
                 console.log("Error", response.status);
-                setErrorMsg(data.msg);
+                setMsg(data.msg);
             }
             else {
                 let data = await response.json();
                 console.log(data);
-                setErrorMsg("");
+                setMsg(data.msg);
             }
         }
         if (send) {
@@ -88,7 +88,7 @@ const AddCustomer = () => {
                 <input type="checkbox" value={error} onChange={() => error == false ? setError(true) : setError(false)} />
             </form>
             <button onClick={() => handleAddCustomer()}>Add Customer</button>
-            <h3>{errorMsg}</h3>
+            <h3>{msg}</h3>
         </div>
     )
 }
