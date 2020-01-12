@@ -34,11 +34,11 @@ const AddStudentForm = () => {
         });
         if (!response.ok) {
             let data = await response.json();
-            console.log("Error", response.status);
+            console.log("Error", data);
         }
         else {
             let data = await response.json();
-            console.log(data);
+            console.log("OK",data);
         }
     }
     if (send) {
